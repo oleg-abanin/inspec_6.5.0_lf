@@ -11,7 +11,7 @@ require "inspec/dependencies/cache"
 require "inspec/dist"
 require "inspec/reporters"
 require "inspec/runner_rspec"
-require "chef-licensing"
+#require "chef-licensing"
 # spec requirements
 
 module Inspec
@@ -162,16 +162,16 @@ module Inspec
     end
 
     def run(with = nil)
-      ChefLicensing.check_software_entitlement! if Inspec::Dist::EXEC_NAME == "inspec"
+      # ChefLicensing.check_software_entitlement! if Inspec::Dist::EXEC_NAME == "inspec"
 
-      # Validate if profiles are signed and verified
-      # Additional check is required to provide error message in case of inspec exec command (exec command can use multiple profiles as well)
-      # Only runs this block when preview flag CHEF_PREVIEW_MANDATORY_PROFILE_SIGNING is set
-      Inspec.with_feature("inspec-mandatory-profile-signing") {
-        unless @conf.allow_unsigned_profiles?
-          verify_target_profiles_if_signed(@target_profiles)
-        end
-      }
+      # # Validate if profiles are signed and verified
+      # # Additional check is required to provide error message in case of inspec exec command (exec command can use multiple profiles as well)
+      # # Only runs this block when preview flag CHEF_PREVIEW_MANDATORY_PROFILE_SIGNING is set
+      # Inspec.with_feature("inspec-mandatory-profile-signing") {
+      #   unless @conf.allow_unsigned_profiles?
+      #     verify_target_profiles_if_signed(@target_profiles)
+      #   end
+      # }
 
       Inspec::Log.debug "Starting run with targets: #{@target_profiles.map(&:to_s)}"
       load
